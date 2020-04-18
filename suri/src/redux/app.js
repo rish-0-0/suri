@@ -43,11 +43,13 @@ export default function (state=initState, action) {
             return {
                 uploading: false,
                 uploadSuccess: true,
+                uploadFailure: false,
             }
         case 'UPLOAD_FAILED':
             return {
                 uploading: false,
                 uploadSuccess: false,
+                uploadFailure: true,
             };
         default:
             return initState;

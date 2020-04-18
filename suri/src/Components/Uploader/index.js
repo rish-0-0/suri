@@ -15,13 +15,20 @@ const Uploader = (props) => {
       </div>
     );
   }
-  if (props.uploadSuccess) {
+  if (props.uploadSuccess != undefined && props.uploadSuccess) {
       return (
           <div className="centered">
               <h1>Results</h1>
               <a href="http://localhost:5000/api/download" download><button>Download</button></a>
           </div>
       );
+  }
+  if (props.uploadFailure != undefined && props.uploadFailure) {
+    return (
+      <div className="centered">
+        <h2>Error in Processing</h2>
+      </div>
+    );
   }
   return (
     <div className="centered uploader">
@@ -51,7 +58,8 @@ const Uploader = (props) => {
 const mapStateToProps = (state) => {
   return {
     uploading: state.app.uploading,
-    uploadSuccess: state.app.uploadSuccess
+    uploadSuccess: state.app.uploadSuccess,
+    uploadFailure: state.app.uploadFailure,
   };
 };
 
