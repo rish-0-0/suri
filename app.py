@@ -16,13 +16,18 @@ def upload():
 	filename = 'data.csv'
 	file.save(os.path.join(os.getcwd(), filename))
 	# import your file and call your function here
-
-
-	# status = ml_model.test(..whatever)
-	# if (status) return "Done"
-	# else return "Failed"
 	print("File Saved Successfully")
-	return jsonify({ 'success' : True })
+	if (request.args.get('category') == 'k-means'):
+		# status = yourmodel.test(...whatever)
+		# if status:
+			# return jsonify({ 'success' : True })
+		# return jsonify({ 'success' : False })
+		pass
+	# status = yourmodel.test(...whatever)
+	# if status:
+		# return jsonify({ 'success' : True })
+	# return jsonify({ 'success' : False })
+	
 
 @app.route('/api/download', methods=['GET'])
 def download():
