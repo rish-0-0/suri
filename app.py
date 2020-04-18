@@ -1,19 +1,33 @@
 import os
 from flask import Flask, request, jsonify, send_file, send_from_directory
-
+from flask_cors import CORS
 
 app = Flask(__name__, static_folder='suri/build')
+CORS(app)
 
-@app.route('/api/upload', methods=['POST', 'GET'])
+@app.route('/api/upload', methods=['POST'])
 def upload():
-	return jsonify({
-		"success": True,
-		"message": "Sup"
-		})
+	if 'file' not in request.files:
+		return jsonify({
+			"success": False,
+			"message": "No File."
+			})
+	file = request.files['file']
+	filename = 'data.csv'
+	file.save(os.path.join(os.getcwd(), filename))
+	# import your file and call your function here
+
+
+	# status = ml_model.test(..whatever)
+	# if (status) return "Done"
+	# else return "Failed"
+	print("File Saved Successfully")
+	return jsonify({ 'success' : True })
 
 @app.route('/api/download', methods=['GET'])
 def download():
 	path='results.csv'
+	return send_from_directory(directory=os.getcwd(),filename=path)
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
